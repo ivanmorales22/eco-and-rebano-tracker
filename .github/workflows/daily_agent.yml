@@ -1,0 +1,36 @@
+name: Daily GDL Insight Agent
+
+on:
+  schedule:
+    # CRON Syntax: Minuto Hora Dia Mes DiaSemana
+    # 14:00 UTC = 8:00 AM Hora CDMX (aprox, sin horario de verano)
+    - cron: '0 14 * * *'
+  # Permite ejecutarlo manualmente desde la pestaña Actions para probar
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt
+          # Aseguramos dependencias extra si faltan en requirements
+          pip install feedparser requests google-generativeai plotly pandas beautifulsoup4
+
+      - name: Ejecutar Agente de Reporte
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+        run: python daily_briefing.py
