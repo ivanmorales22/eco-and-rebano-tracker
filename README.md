@@ -90,6 +90,7 @@ graph TD
     F -->|8:00 AM Daily| G[Email Briefing]
 ```
 
+```text
 eco-and-rebano-tracker/
 ├── .devcontainer/          # Configuration for Codespaces/Docker
 │   └── devcontainer.json   # Virtual environment rules & extensions
@@ -111,3 +112,4 @@ eco-and-rebano-tracker/
 ├── README.md               # Project documentation
 ├── requirements.txt        # Python libraries
 └── utils.py                # Cache manager (Save/Read JSONs)
+```
