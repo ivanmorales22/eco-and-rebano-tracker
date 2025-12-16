@@ -78,14 +78,14 @@ Gitignore file should already be ignoring it but be sure.
     python daily_briefing.py
 
 
-## 🧠 Arquitectura del Agente
+## Architecture
 
 ```mermaid
 graph TD
     A[Fuentes de Datos] -->|RSS & Scraping| B(Scripts de Python)
     B -->|Texto Crudo| C{Gemini AI 1.5}
     C -->|Resumen & Limpieza| D[Datos Estructurados]
-    D --> E[Streamlit Dashboard (PULL)]
-    D --> F[GitHub Actions (PUSH)]
+    D --> E["Streamlit Dashboard (PULL)"]
+    D --> F["GitHub Actions (PUSH)"]
     F -->|8:00 AM Daily| G[Email Briefing]
 ```
