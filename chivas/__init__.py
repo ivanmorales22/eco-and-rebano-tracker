@@ -17,4 +17,3 @@ __all__ = [
     'process_all_news',
     'resumir_noticia_con_ia'
 ]
-
