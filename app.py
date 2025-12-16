@@ -5,13 +5,12 @@ Dashboard para monitorear noticias sobre el Medio Ambiente en la ZMG y Chivas de
 
 import streamlit as st
 import pandas as pd
-# Asegúrate de que el nombre del archivo coincida (data o data_improved)
 
 from environment.data import (
     get_air_quality_zmg,
     get_air_quality_zmg_stations,
     get_water_levels_history_mock,
-    plot_water_levels,            # Ya no dará error
+    plot_water_levels,
     EnvironmentVisualizations,
     get_chapala_level,
     get_env_news
@@ -46,7 +45,7 @@ st.markdown("""
     /* Estilos para las pestañas */
     .stTabs [data-baseweb="tab-list"] {
         gap: 2px;
-        background-color: #f0f2f6;
+        background-color: #485878;
         padding: 0.5rem;
         border-radius: 10px;
     }
@@ -186,11 +185,11 @@ with tab1:
                     """)
                     
                     if selected_data['imeca'] > 100:
-                        st.warning("⚠️ Calidad del aire mala. Evita actividades vigorosas al aire libre.")
+                        st.warning("⚠️ Calidad del aire mala. Evita actividades al aire libre en la ZMG.")
                     elif selected_data['imeca'] > 50:
-                        st.info("⚠️ Calidad regular. Personas sensibles deben cuidarse.")
+                        st.info("⚠️ Calidad regular. Personas sensibles deben cuidarse dentro de la ZMG.")
                     else:
-                        st.success("✅ Calidad buena. Disfruta el aire libre.")
+                        st.success("✅ Calidad buena. Disfruta el aire libre de la ZMG.")
 
         st.markdown("---")
 
