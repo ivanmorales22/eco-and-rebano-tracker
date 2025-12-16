@@ -5,6 +5,7 @@ Dashboard para monitorear noticias sobre el Medio Ambiente en la ZMG y Chivas de
 
 import streamlit as st
 import pandas as pd
+from datetime import datetime
 
 from environment.data import (
     get_air_quality_zmg,
@@ -103,19 +104,18 @@ with tab1:
 
     @st.cache_data(ttl=300) 
     def get_cached_stations_data():
-        """Obtiene datos de todas las estaciones de calidad del aire"""
         return get_air_quality_zmg_stations(use_mock_on_error=True)
     
     @st.cache_data(ttl=300)
     def get_cached_chapala_level():
-        """Obtiene la cota actual del Lago de Chapala"""
         return get_chapala_level(use_mock_on_error=True)
     
     @st.cache_data(ttl=3600)
     def get_cached_water_history(days=180):
         return get_water_levels_history_mock(days=days)
 
-    @st.cache_data(ttl=1800)
+    # AQUÍ QUITAMOS 'persist="disk"' PARA ELIMINAR EL WARNING
+    @st.cache_data(ttl=3600) 
     def get_cached_env_news_data(use_ai=True):
         return get_env_news(max_items=5, use_ai=use_ai)
 
@@ -247,9 +247,10 @@ with tab2:
     st.info("📰 Las noticias son procesadas por IA (Google AI Studio/Gemini) para eliminar sensacionalismo y clickbait. Se requiere configuración de GOOGLE_AI_API_KEY.")
     
     # Cachear noticias para evitar múltiples requests
-    @st.cache_data(ttl=1800)  # Cache por 30 minutos
-    def get_cached_chivas_news(use_ai: bool = True):
+    @st.cache_data(ttl=3600)  # Cache por 1 dia
+    def get_cached_chivas_news(use_ai: True):
         """Obtiene noticias de Chivas con caché"""
+        today = datetime.now().strftime("%Y-%m-%d") 
         return get_chivas_news(max_items=5, use_ai=use_ai)
     
     # Checkbox para habilitar/deshabilitar IA
@@ -340,4 +341,3 @@ with tab2:
             
             Sin la API key, las noticias se mostrarán sin procesar.
             """)
-

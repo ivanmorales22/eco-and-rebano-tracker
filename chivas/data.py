@@ -10,6 +10,9 @@ import logging
 from datetime import datetime
 import os
 import re
+from utils import load_daily_cache, save_daily_cache
+
+CHIVAS_CACHE_FILE = "cache_chivas_news.json"
 
 # Intentar cargar variables de entorno desde archivo .env si existe
 try:
@@ -222,27 +225,17 @@ def process_all_news(news_list: List[Dict], use_ai: bool = True) -> List[Dict]:
 # ============================================================================
 
 def get_chivas_news(max_items: int = None, use_ai: bool = True) -> List[Dict]:
-    """
-    Función principal para obtener y procesar noticias de Chivas.
+    # 1. Intentar leer caché del disco
+    cached_data = load_daily_cache(CHIVAS_CACHE_FILE)
+    if cached_data:
+        return cached_data
+
+    # 2. Si no hay caché, ejecutamos lógica normal (RSS + IA)
+    news = get_chivas_news_rss(max_items)
+    processed_news = process_all_news(news, use_ai)
     
-    Args:
-        max_items: Número máximo de noticias a obtener
-        use_ai: Si True, procesa las noticias con IA
+    # 3. Guardar en disco si obtuvimos resultados
+    if processed_news:
+        save_daily_cache(CHIVAS_CACHE_FILE, processed_news)
         
-    Returns:
-        Lista de noticias procesadas
-    """
-    # Obtener noticias del RSS
-    news_list = get_chivas_news_rss(max_items=max_items)
-    
-    if not news_list:
-        logger.warning("No se obtuvieron noticias del RSS")
-        return []
-    
-    # Procesar con IA si está habilitado
-    if use_ai:
-        processed_news = process_all_news(news_list, use_ai=True)
-    else:
-        processed_news = news_list
-    
     return processed_news
