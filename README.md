@@ -82,9 +82,9 @@ Gitignore file should already be ignoring it but be sure.
 
 ```mermaid
 graph TD
-    A[Fuentes de Datos] -->|RSS & Scraping| B(Scripts de Python)
-    B -->|Texto Crudo| C{Gemini AI 1.5}
-    C -->|Resumen & Limpieza| D[Datos Estructurados]
+    A[Data Sources - Google] -->|RSS & Scraping| B(Python Scripts )
+    B -->|Raw Text| C{Gemini AI Flash 2.5}
+    C -->|Cleaning & Summarizing| D[Structured Data]
     D --> E["Streamlit Dashboard (PULL)"]
     D --> F["GitHub Actions (PUSH)"]
     F -->|8:00 AM Daily| G[Email Briefing]
