@@ -89,3 +89,25 @@ graph TD
     D --> F["GitHub Actions (PUSH)"]
     F -->|8:00 AM Daily| G[Email Briefing]
 ```
+
+eco-and-rebano-tracker/
+├── .devcontainer/          # Configuration for Codespaces/Docker
+│   └── devcontainer.json   # Virtual environment rules & extensions
+├── .github/
+│   └── workflows/
+│       └── daily_agent.yml # Daily email automation (8:00 AM)
+├── chivas/                 # Module: Chivas
+│   ├── __init__.py
+│   └── data.py             # Chivas news logic + AI Filter
+├── environment/            # Module: ZMG Environment
+│   ├── __init__.py
+│   └── data.py             # Scraping (IMECA/Chapala) + Env News
+├── images/                 # Screenshots for the README
+│   ├── streamlit-chivas.png
+│   └── streamlit-environment.png
+├── .gitignore              # Ignored files (Cache JSONs, .env, venv)
+├── app.py                  # Main Frontend (Streamlit Dashboard)
+├── daily_briefing.py       # Autonomous Agent Script (Email sender)
+├── README.md               # Project documentation
+├── requirements.txt        # Python libraries
+└── utils.py                # Cache manager (Save/Read JSONs)
