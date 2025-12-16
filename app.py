@@ -240,7 +240,7 @@ with tab1:
 
 # Pestaña 2: Chivas
 with tab2:
-    st.markdown("### 🐐 Chivas de Guadalajara")
+    st.markdown("### 🐐 Chivas de Guadalajara, la actualidad del Rebaño Sagrado")
     st.markdown("---")
     
     # Información sobre el procesamiento de noticias
